@@ -33,41 +33,54 @@ class _NoteScreenState extends State<NoteScreen> {
             );
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(20),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final note = snapshot.data![index];
-              return Card(
-                color: Colors.blue,
-                child: ListTile(
-                  title: Text(note.title),
-                  subtitle: Column(
-                    children: [
-                      Text(note.content),
-                      Text("${note.createdDate}"),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // Handle edit action
-                        },
-                        icon: Icon(Icons.edit),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Handle delete action
-                        },
-                        icon: Icon(Icons.delete),
-                      ),
-                    ],
-                  ),
+          return Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  "Notes",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-              );
-            },
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final note = snapshot.data![index];
+                    return Card(
+                      color: Colors.blue,
+                      child: ListTile(
+                        title: Text(note.title),
+                        subtitle: Column(
+                          children: [
+                            Text(note.content),
+                            Text("${note.createdDate}"),
+                          ],
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                // Handle edit action
+                              },
+                              icon: Icon(Icons.edit),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                // Handle delete action
+                              },
+                              icon: Icon(Icons.delete),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       ),

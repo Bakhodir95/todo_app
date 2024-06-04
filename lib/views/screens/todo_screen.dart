@@ -33,42 +33,61 @@ class _TodoScreenState extends State<TodoScreen> {
               child: Text("There is no product, please add product first!"),
             );
           }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(20),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              final todo = snapshot.data![index];
-              return Card(
-                color: Colors.amber,
-                child: ListTile(
-                  title: Text(todo.title),
-                  subtitle: Column(
-                    children: [
-                      Text(todo.description),
-                      Text("${todo.date}"),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // Handle edit action
-                        },
-                        icon: Icon(Icons.edit),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          // Handle delete action
-                        },
-                        icon: Icon(Icons.delete),
-                      ),
-                    ],
-                  ),
+          return Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  "Todos",
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
-              );
-            },
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    final todo = snapshot.data![index];
+                    return Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Card(
+                          color: Colors.amber,
+                          child: ListTile(
+                            title: Text(todo.title),
+                            subtitle: Column(
+                              children: [
+                                Text(todo.description),
+                                Text("${todo.date}"),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    // Handle edit action
+                                  },
+                                  icon: Icon(Icons.edit),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    // Handle delete action
+                                  },
+                                  icon: Icon(Icons.delete),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       ),
