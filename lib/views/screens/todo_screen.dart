@@ -40,6 +40,7 @@ class _TodoScreenState extends State<TodoScreen> {
             itemBuilder: (context, index) {
               final todo = snapshot.data![index];
               return Card(
+                color: Colors.amber,
                 child: ListTile(
                   title: Text(todo.title),
                   subtitle: Column(

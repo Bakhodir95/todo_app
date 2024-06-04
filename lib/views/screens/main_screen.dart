@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/views/screens/note_screen.dart';
 import 'package:todo_app/views/screens/todo_screen.dart';
-import 'package:todo_app/views/widgets/note_widget.dart';
-import 'package:todo_app/views/widgets/todo_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -32,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
         body: PageView(
       children: [
         TodoScreen(),
-        NoteWidget(),
+        NoteScreen(),
         Row(
           children: <Widget>[
             NavigationRail(
