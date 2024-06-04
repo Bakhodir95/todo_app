@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/controllers/todo_controller.dart';
+import 'package:todo_app/models/todo_model.dart';
 
 class TodoScreen extends StatefulWidget {
-  const TodoScreen({super.key});
+  const TodoScreen({Key? key}) : super(key: key);
 
   @override
   State<TodoScreen> createState() => _TodoScreenState();
@@ -11,53 +12,65 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
   TodoController todoController = TodoController();
 
-void editTodo(Todo todo){
-
-}
-
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return Scaffold(
+      body: FutureBuilder(
         future: todoController.getTodos(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState==ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator(),);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()),)
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
           }
           if (!snapshot.hasData) {
-              return const Center(
-                child: Text("There is no product, please add product first!"),
+            return const Center(
+              child: Text("There is no product, please add product first!"),
+            );
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(20),
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              final todo = snapshot.data![index];
+              return Card(
+                child: ListTile(
+                  title: Text(todo.title),
+                  subtitle: Column(
+                    children: [
+                      Text(todo.description),
+                      Text("${todo.date}"),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          // Handle edit action
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          // Handle delete action
+                        },
+                        icon: Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
+                ),
               );
-         }
-         final todos = snapshot.data;
-         return todos == null
-                ? const Center(
-                    child: Text("Mahsulotlar mavjud emas, iltimos qo'shing"),
-                  )
-                : ListView.builder(
-                    padding: const EdgeInsets.all(20),
-                    itemCount: todos.length,
-                    itemBuilder: (ctx, index) {
-                      final todo = todos[index];
-                      return TodoItem(
-                        todo: todo,
-                        onEdit: () {
-                          editTodo(todo);
-                        },
-                        onDelete: () {
-                          deleteTodo(todo);
-                        },
-                      );
-                    },
-                  );
-          // return ListView.builder(
-          //     itemCount: todoController.list.length,
-          //     itemBuilder: (context, index) {
-          //       return Card(child: ListTile(),)
-          //     });
-        });
+            },
+          );
+        },
+      ),
+    );
   }
 }

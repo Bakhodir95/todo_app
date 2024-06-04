@@ -5,13 +5,13 @@ part 'note_model.g.dart';
 @JsonSerializable()
 class Note {
   int id;
-  String tittle;
+  String title;
   String content;
   DateTime createdDate;
 
   Note({
     required this.id,
-    required this.tittle,
+    required this.title,
     required this.content,
     required this.createdDate,
   });

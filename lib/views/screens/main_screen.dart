@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/views/screens/todo_screen.dart';
 import 'package:todo_app/views/widgets/note_widget.dart';
 import 'package:todo_app/views/widgets/todo_widget.dart';
 
@@ -15,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
         body: PageView(
       children: [
-        TodoWidget(),
+        TodoScreen(),
         NoteWidget(),
       ],
     ));
