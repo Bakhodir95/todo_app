@@ -3,7 +3,7 @@ import 'package:todo_app/controllers/todo_controller.dart';
 import 'package:todo_app/models/todo_model.dart';
 
 class TodoScreen extends StatefulWidget {
-  const TodoScreen({Key? key}) : super(key: key);
+  const TodoScreen({super.key});
 
   @override
   State<TodoScreen> createState() => _TodoScreenState();
