@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/controllers/note_controller.dart';
-import 'package:todo_app/controllers/todo_controller.dart';
-import 'package:todo_app/models/todo_model.dart';
 
-class TodoScreen extends StatefulWidget {
-  const TodoScreen({super.key});
+class NoteScreen extends StatefulWidget {
+  const NoteScreen({super.key});
 
   @override
-  State<TodoScreen> createState() => _TodoScreenState();
+  State<NoteScreen> createState() => _NoteScreenState();
 }
 
-class _TodoScreenState extends State<TodoScreen> {
+class _NoteScreenState extends State<NoteScreen> {
   NoteController noteController = NoteController();
 
   @override
