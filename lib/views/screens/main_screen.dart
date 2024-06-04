@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/views/screens/todo_screen.dart';
 import 'package:todo_app/views/widgets/note_widget.dart';
 import 'package:todo_app/views/widgets/todo_widget.dart';
 
@@ -11,18 +12,10 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = [
-    const Center(
-      child: Text("Bosh sahifa"),
-    ),
-    const Center(
-      child: Text("Ikkinchi sahifa"),
-    ),
-    const Center(
-      child: Text("Uchinchi sahifa"),
-    ),
-    const Center(
-      child: Text("Uchinchi sahifa"),
-    ),
+    TodoScreen(),
+    TodoScreen(),
+    TodoScreen(),
+    TodoScreen(),
   ];
 
   // ignore: non_constant_identifier_names
@@ -39,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
         body: PageView(
       children: [
-        TodoWidget(),
+        TodoScreen(),
         NoteWidget(),
         Row(
           children: <Widget>[
