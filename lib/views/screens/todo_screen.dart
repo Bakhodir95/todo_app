@@ -50,7 +50,7 @@ class _TodoScreenState extends State<TodoScreen> {
                     final todo = snapshot.data![index];
                     return Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Card(

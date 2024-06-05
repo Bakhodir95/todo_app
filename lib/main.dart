@@ -8,7 +8,7 @@ void main(List<String> args) {
 class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: MainScreen(),
     );

@@ -12,6 +12,7 @@ class NoteController {
     final data = await http.get(Uri.parse(
         'https://todonote-912ed-default-rtdb.firebaseio.com/notes.json'));
     Map<String, dynamic> json = jsonDecode(data.body);
+    
     json.forEach((String key, dynamic value) {
       _list.add(Note.fromJson(value));
       print(value.runtimeType);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/views/screens/note_screen.dart';
 import 'package:todo_app/views/screens/todo_screen.dart';
+import 'package:todo_app/views/widgets/contact_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,6 +13,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   List<Widget> screens = [
     TodoScreen(),
+    NoteScreen(),
+    ContactWidget(),
     NoteScreen(),
   ];
 
@@ -31,6 +34,7 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         TodoScreen(),
         NoteScreen(),
+        ContactWidget(),
         Row(
           children: <Widget>[
             NavigationRail(
