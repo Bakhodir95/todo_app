@@ -15,10 +15,19 @@ class ContactController {
 
     if (data != null) {
       data.forEach((key, value) {
-        contacts.add(Contact(id: key, name: value["name"]));
+        contacts.add(Contact(id: key, fullname: value["fullname"]));
       });
     }
     print(contacts);
     return contacts;
+  }
+
+  Future<void> addContacts(String fullname) async {
+    Uri url = Uri.parse(
+        "https://todonote-912ed-default-rtdb.firebaseio.com/contacts.json");
+    final response =
+        await http.post(url, body: jsonEncode({"fullname": fullname}));
+    final data = jsonDecode(response.body);
+    print(data);
   }
 }

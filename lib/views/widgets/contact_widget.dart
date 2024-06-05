@@ -25,23 +25,44 @@ class _HomePageState extends State<ContactWidget> {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-              onPressed: () {
-                showDialog(
+              onPressed: () async {
+                final response = await showDialog(
                     context: context,
                     builder: (ctx) {
                       return AlertDialog(
-                        title: Text("Add Contacts"),
+                        title: const Text("Add Contacts"),
                         content: Column(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             TextField(
                               controller: nameController,
-                              decoration:
-                                  InputDecoration(border: OutlineInputBorder()),
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: "Name"),
                             )
                           ],
                         ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Cancel")),
+                          FilledButton(
+                              onPressed: () {
+                                Navigator.pop(context, nameController.text);
+                              },
+                              child: const Text("Save"))
+                        ],
                       );
                     });
+                if (response != null) {
+                  //? yangi kontact qo'shish
+                  print(response);
+                  nameController.clear();
+                  await controller.addContacts(response);
+                  setState(() {});
+                }
               },
               icon: const Icon(
                 Icons.add,
@@ -67,7 +88,7 @@ class _HomePageState extends State<ContactWidget> {
                   itemBuilder: (ctx, index) {
                     return ListTile(
                       title: Text(
-                        "${index + 1}.${contacts[index].name}",
+                        "${index + 1}.${contacts[index].fullname}",
                         style: const TextStyle(fontSize: 30),
                       ),
                     );
