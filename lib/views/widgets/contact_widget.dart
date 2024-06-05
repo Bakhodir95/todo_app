@@ -134,6 +134,16 @@ class _HomePageState extends State<ContactWidget> {
                         "${index + 1}.${contacts[index].fullname}",
                         style: const TextStyle(fontSize: 30),
                       ),
+                      trailing: IconButton(
+                          onPressed: () {
+                            // ! Delete Contacts
+                            controller.deleteContacts(contacts[index].id);
+                            setState(() {});
+                          },
+                          icon: const Icon(
+                            Icons.delete,
+                            size: 30,
+                          )),
                     );
                   },
                 );

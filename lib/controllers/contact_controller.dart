@@ -37,4 +37,10 @@ class ContactController {
     final respose =
         await http.patch(url, body: jsonEncode({"fullname": fullname}));
   }
+
+  Future<void> deleteContacts(String id) async {
+    Uri url = Uri.parse(
+        "https://todonote-912ed-default-rtdb.firebaseio.com/contacts/$id.json");
+    final respose = await http.delete(url);
+  }
 }
