@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+// part 'contact_model.g.dart';
+
+@JsonSerializable()
 class Contact {
   String fullname;
   String id;

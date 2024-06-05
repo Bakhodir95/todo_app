@@ -57,7 +57,7 @@ class _HomePageState extends State<ContactWidget> {
                       );
                     });
                 if (response != null) {
-                  //? yangi kontact qo'shish
+                  //! Add new contacts
                   print(response);
                   nameController.clear();
                   await controller.addContacts(response);
@@ -86,7 +86,50 @@ class _HomePageState extends State<ContactWidget> {
               : ListView.builder(
                   itemCount: contacts.length,
                   itemBuilder: (ctx, index) {
+                    contacts.sort((a, b) => a.fullname
+                        .toLowerCase()
+                        .compareTo(b.fullname.toLowerCase()));
                     return ListTile(
+                      onTap: () async {
+                        nameController.text = contacts[index].fullname;
+                        final response = await showDialog(
+                            context: context,
+                            builder: (ctx) {
+                              return AlertDialog(
+                                title: const Text("Edit Contacts"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextField(
+                                      controller: nameController,
+                                      decoration: const InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          labelText: "Name"),
+                                    )
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("Cancel")),
+                                  FilledButton(
+                                      onPressed: () {
+                                        Navigator.pop(
+                                            context, nameController.text);
+                                      },
+                                      child: const Text("Edit"))
+                                ],
+                              );
+                            });
+
+                        if (response != null) {
+                          //! Contact editing
+                          controller.editContacts(contacts[index].id, response);
+                          setState(() {});
+                        }
+                      },
                       title: Text(
                         "${index + 1}.${contacts[index].fullname}",
                         style: const TextStyle(fontSize: 30),

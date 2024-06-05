@@ -30,4 +30,11 @@ class ContactController {
     final data = jsonDecode(response.body);
     print(data);
   }
+
+  Future<void> editContacts(String id, String fullname) async {
+    Uri url = Uri.parse(
+        "https://todonote-912ed-default-rtdb.firebaseio.com/contacts/$id.json");
+    final respose =
+        await http.patch(url, body: jsonEncode({"fullname": fullname}));
+  }
 }
