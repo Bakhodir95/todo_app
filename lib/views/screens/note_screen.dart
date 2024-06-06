@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/controllers/note_controller.dart';
+import 'package:todo_app/models/note_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class NoteScreen extends StatefulWidget {
-  const NoteScreen({super.key});
+  const NoteScreen({Key? key}) : super(key: key);
 
   @override
   State<NoteScreen> createState() => _NoteScreenState();
 }
 
 class _NoteScreenState extends State<NoteScreen> {
-  NoteController noteController = NoteController();
+  final NoteController noteController = NoteController();
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: 'bsnW2LfxEsM',
+      flags: const YoutubePlayerFlags(
+        autoPlay: true,
+        mute: false,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +44,7 @@ class _NoteScreenState extends State<NoteScreen> {
           }
           if (!snapshot.hasData) {
             return const Center(
-              child: Text("There is no product, please add product first!"),
+              child: Text("There are no notes. Please add some notes first!"),
             );
           }
 
@@ -48,34 +63,18 @@ class _NoteScreenState extends State<NoteScreen> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     final note = snapshot.data![index];
-                    return Card(
-                      color: Colors.blue,
-                      child: ListTile(
-                        title: Text(note.title),
-                        subtitle: Column(
-                          children: [
-                            Text(note.content),
-                            Text("${note.createdDate}"),
-                          ],
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                // Handle edit action
-                              },
-                              icon: Icon(Icons.edit),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                // Handle delete action
-                              },
-                              icon: Icon(Icons.delete),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return NoteCard(
+                      note: note,
+                      controller: _controller,
+                      onDelete: () {
+                        setState(() {
+                          // Handle delete action
+                          // noteController.(note.id);
+                        });
+                      },
+                      onEdit: () {
+                        // Handle edit action
+                      },
                     );
                   },
                 ),
@@ -84,6 +83,62 @@ class _NoteScreenState extends State<NoteScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+class NoteCard extends StatelessWidget {
+  final Note note;
+  final YoutubePlayerController controller;
+  final VoidCallback onDelete;
+  final VoidCallback onEdit;
+
+  const NoteCard({
+    required this.note,
+    required this.controller,
+    required this.onDelete,
+    required this.onEdit,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Card(
+          color: Colors.blue,
+          child: ListTile(
+            title: Text(note.title),
+            subtitle: Column(
+              children: [
+                Text(note.content),
+                Text("${note.createdDate}"),
+              ],
+            ),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: onEdit,
+                  icon: Icon(Icons.edit),
+                ),
+                IconButton(
+                  onPressed: onDelete,
+                  icon: Icon(Icons.delete),
+                ),
+              ],
+            ),
+          ),
+        ),
+        YoutubePlayer(
+          controller: controller,
+          showVideoProgressIndicator: true,
+          progressIndicatorColor: Colors.amber,
+          progressColors: const ProgressBarColors(
+            playedColor: Colors.amber,
+            handleColor: Colors.amberAccent,
+          ),
+        ),
+      ],
     );
   }
 }

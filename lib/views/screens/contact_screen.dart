@@ -28,7 +28,7 @@ class _HomePageState extends State<ContactWidget> {
   ];
 
   // ignore: non_constant_identifier_names
-  int _selected_index = 2;
+  int _selected_index = 0;
 
   void onItemTap(int index) {
     setState(() {
