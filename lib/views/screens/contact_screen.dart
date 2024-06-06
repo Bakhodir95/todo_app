@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_app/controllers/contact_controller.dart';
+import 'package:todo_app/views/screens/note_screen.dart';
+import 'package:todo_app/views/screens/todo_screen.dart';
 
 class ContactWidget extends StatefulWidget {
   const ContactWidget({Key? key}) : super(key: key);
@@ -10,6 +12,30 @@ class ContactWidget extends StatefulWidget {
 }
 
 class _HomePageState extends State<ContactWidget> {
+  List<Widget> screens = [
+    const TodoScreen(),
+    const NoteScreen(),
+    const ContactWidget(),
+    const Center(
+      child: Text(
+        "To'rtinchi sahifa",
+        style: TextStyle(
+          fontSize: 40,
+          color: Colors.black,
+        ),
+      ),
+    ),
+  ];
+
+  // ignore: non_constant_identifier_names
+  int _selected_index = 2;
+
+  void onItemTap(int index) {
+    setState(() {
+      _selected_index = index;
+    });
+  }
+
   ContactController controller = ContactController();
   final nameController = TextEditingController();
   @override
@@ -148,6 +174,18 @@ class _HomePageState extends State<ContactWidget> {
                   },
                 );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person"),
+          BottomNavigationBarItem(icon: Icon(Icons.business), label: "Business")
+        ],
+        currentIndex: _selected_index,
+        selectedItemColor: Colors.green,
+        onTap: onItemTap,
       ),
     );
   }

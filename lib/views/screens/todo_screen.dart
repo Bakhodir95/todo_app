@@ -70,7 +70,7 @@ class _TodoScreenState extends State<TodoScreen> {
                                   onPressed: () {
                                     // Handle edit action
                                   },
-                                  icon: Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit),
                                 ),
                                 IconButton(
                                   onPressed: () {

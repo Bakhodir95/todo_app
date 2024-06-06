@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/views/screens/note_screen.dart';
 import 'package:todo_app/views/screens/todo_screen.dart';
-import 'package:todo_app/views/widgets/contact_widget.dart';
+import 'package:todo_app/views/screens/contact_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   // ignore: non_constant_identifier_names
-  int _selected_index = 0;
+  int _selected_index = 2;
 
   void onItemTap(int index) {
     setState(() {
